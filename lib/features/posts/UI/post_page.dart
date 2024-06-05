@@ -24,6 +24,12 @@ class _PostsPageState extends State<PostsPage> {
       appBar: AppBar(
         title: const Text('Posts Page'),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          postsBloc.add(PostsAddEvent());
+        },
+      ),
       body: BlocConsumer<PostsBloc, PostsState>(
         bloc: postsBloc,
         listenWhen: (previous, current) => current is PostActionState,

@@ -12,6 +12,7 @@ part 'posts_state.dart';
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   PostsBloc() : super(PostsInitial()) {
     on<PostsInitialEvent>(postsInitialEvent);
+    on<PostsAddEvent>(postsAddEvent);
   }
 
   FutureOr<void> postsInitialEvent(
@@ -20,5 +21,15 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     List<PostDataUiModel> post = await PostsRepo.fetchPosts();
 
     emit(PostFetchingSuccessfulState(posts: post));
+  }
+
+  FutureOr<void> postsAddEvent(
+      PostsAddEvent event, Emitter<PostsState> emit) async {
+    bool success = await PostsRepo.addPosts();
+    if (success) {
+      emit(PostsAdditionSuccessState());
+    } else {
+      emit(PostsAdditionErrorState());
+    }
   }
 }

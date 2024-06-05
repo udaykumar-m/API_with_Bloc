@@ -5,4 +5,4 @@ sealed class PostsEvent {}
 
 class PostsInitialEvent extends PostsEvent {}
 
-class PostAddEvent extends PostsEvent {}
+class PostsAddEvent extends PostsEvent {}
